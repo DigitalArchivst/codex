@@ -1,0 +1,57 @@
+################ 5.2.21(1)-release
+
+## printf alternate form %#q
+a\ b|a\ b
+[status 0]
+
+## [[ =~ ]] with an invalid regex
+[status 2]
+
+## unterminated if reports its start line
+/bin/bash: -c: line 3: syntax error: unexpected end of file
+[status 2]
+
+## new shopt names
+/bin/bash: line 1: shopt: array_expand_once: invalid shell option name
+/bin/bash: line 1: shopt: bash_source_fullpath: invalid shell option name
+[status 1]
+
+## type -a -P after hashing
+/usr/bin/ls
+[status 0]
+
+## Readline names (interactive shell)
+################ 5.3.20(1)-release
+
+## printf alternate form %#q
+a\ b|'a b'
+[status 0]
+
+## [[ =~ ]] with an invalid regex
+$S/bash53/install/bin/bash: line 1: [[: invalid regular expression `(': Unmatched ( or \(
+[status 2]
+
+## unterminated if reports its start line
+$S/bash53/install/bin/bash: -c: line 3: syntax error: unexpected end of file from `if' command on line 1
+[status 2]
+
+## new shopt names
+array_expand_once   	off
+bash_source_fullpath	off
+[status 1]
+
+## type -a -P after hashing
+/usr/bin/ls
+/usr/bin/ls
+/bin/ls
+[status 0]
+
+## Readline names (interactive shell)
+execute-named-command
+export-completions
+set force-meta-prefix off
+set search-ignore-case off
+
+## fltexpr loadable
+3
+[status 0]

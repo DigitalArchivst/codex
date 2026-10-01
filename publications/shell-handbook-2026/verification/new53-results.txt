@@ -1,0 +1,191 @@
+################ 5.2.21(1)-release
+
+## central specimen
+ordinary: x=before, result=value
+/bin/bash: line 2: ${ x=after; printf "value\n"; }: bad substitution
+[status 1]
+
+## REPLY specimen
+/bin/bash: line 1: ${| REPLY='line1
+'; echo "stdout message"; }: bad substitution
+[status 1]
+
+## exit inside ${ }
+/bin/bash: line 1: ${ exit 7; }: bad substitution
+[status 1]
+
+## return inside ${ }
+/bin/bash: line 1: ${ printf a; return; printf b; }: bad substitution
+[status 1]
+
+## local inside ${ }
+/bin/bash: line 1: ${ local X=12345; echo $X; }: bad substitution
+[status 1]
+
+## positional params shared
+/bin/bash: line 1: ${ shift; echo "$1"; }: bad substitution
+[status 1]
+
+## status of ${ }
+/bin/bash: line 1: ${ false; }: bad substitution
+[status 1]
+
+## GLOBSORT numeric
+1 10 2 a b
+1 10 2 a b
+1 10 2 a b
+[status 0]
+
+## GLOBSORT size
+s1 s2 s3
+[status 0]
+
+## compgen -V
+/bin/bash: line 1: compgen: -V: invalid option
+compgen: usage: compgen [-abcdefgjksuv] [-o option] [-A action] [-G globpat] [-W wordlist] [-F function] [-C command] [-X filterpat] [-P prefix] [-S suffix] [word]
+/bin/bash: line 1: declare: arr: not found
+[status 1]
+
+## source -p
+/bin/bash: line 1: source: -p: invalid option
+source: usage: source filename [arguments]
+/bin/bash: line 1: .: -p: invalid option
+.: usage: . filename [arguments]
+[status 2]
+
+## source -p no cwd fallback
+loaded-from-cwd
+/bin/bash: line 1: source: -p: invalid option
+source: usage: source filename [arguments]
+[status 2]
+
+## trap -P
+/bin/bash: line 1: trap: -P: invalid option
+trap: usage: trap [-lp] [[arg] signal_spec ...]
+[status 2]
+
+## BASH_MONOSECONDS / BASH_TRAPSIG
+mono=<unset>
+trapsig=
+[status 0]
+
+## TIMEFORMAT 6 digits
+0.012
+[status 0]
+
+## version-guarded new syntax inside if
+r=old
+[status 0]
+
+## guarded multiline new syntax
+survived parse
+[status 0]
+
+## guarded new syntax with braces inside
+/bin/bash: -c: line 1: syntax error near unexpected token `}'
+/bin/bash: -c: line 1: `if false; then r=${ printf "%s " {a,b}; }; fi; echo "survived parse"'
+[status 2]
+
+## guarded pipe form inside function
+defined f
+[status 0]
+
+## empty PATH
+ran-from-cwd
+[status 0]
+
+## guarded braces, as a script file
+guard2.sh: line 1: syntax error near unexpected token `}'
+guard2.sh: line 1: `if false; then r=${ printf '%s ' {a,b}; }; fi'
+[status 2]
+################ 5.3.20(1)-release
+
+## central specimen
+ordinary: x=before, result=value
+current: x=after, result=value
+[status 0]
+
+## REPLY specimen
+stdout message
+v=$'line1\n' REPLY=outer
+[status 0]
+
+## exit inside ${ }
+[status 7]
+
+## return inside ${ }
+x=a
+[status 0]
+
+## local inside ${ }
+X=orig y=12345
+[status 0]
+
+## positional params shared
+count=2 y=b
+[status 0]
+
+## status of ${ }
+status=1
+[status 0]
+
+## GLOBSORT numeric
+1 2 10 a b
+b a 10 2 1
+1 10 2 a b
+[status 0]
+
+## GLOBSORT size
+s3 s2 s1
+[status 0]
+
+## compgen -V
+declare -a arr=([0]="beta")
+[status 0]
+
+## source -p
+loaded-from-lib
+loaded-from-lib
+[status 0]
+
+## source -p no cwd fallback
+loaded-from-cwd
+$S/bash53/install/bin/bash: line 1: source: here.sh: file not found
+[status 1]
+
+## trap -P
+echo hi
+[status 0]
+
+## BASH_MONOSECONDS / BASH_TRAPSIG
+mono=1172
+trapsig=10
+[status 0]
+
+## TIMEFORMAT 6 digits
+0.013143
+[status 0]
+
+## version-guarded new syntax inside if
+r=new
+[status 0]
+
+## guarded multiline new syntax
+survived parse
+[status 0]
+
+## guarded new syntax with braces inside
+survived parse
+[status 0]
+
+## guarded pipe form inside function
+defined f
+[status 0]
+
+## empty PATH
+ran-from-cwd
+[status 0]
+
+## guarded braces, as a script file
+survived parse
+[status 0]

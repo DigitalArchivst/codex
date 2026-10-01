@@ -1,0 +1,106 @@
+################ 5.2.21(1)-release
+
+## line-count 'two lines.txt'
+two lines.txt: 2 lines
+[status 0]
+
+## line-count 'no final newline.txt'
+no final newline.txt: 1 lines
+[status 0]
+
+## line-count '-leading.txt'
+-leading.txt: 1 lines
+[status 0]
+
+## line-count "$(printf 'tab\there.txt')"
+tab	here.txt: 2 lines
+[status 0]
+
+## line-count missing.txt
+./line-count: line 4: missing.txt: No such file or directory
+Cannot count missing.txt (status 1)
+[status 1]
+
+## line-count adir
+wc: 'standard input': Is a directory
+Cannot count adir (status 1)
+[status 1]
+
+## line-count 
+./line-count: line 3: 1: Usage: line-count FILE
+[status 1]
+
+## pipefail + head
+status=141 PIPESTATUS=141 0
+[status 0]
+
+## local masks status
+after local: 0
+after split: 1
+[status 0]
+
+## lastpipe non-interactive
+v=hi
+[status 0]
+
+## plain pipeline loses var
+v=<empty>
+[status 0]
+
+## errexit ignored in function called by if
+kept going inside f
+f succeeded
+[status 0]
+################ 5.3.20(1)-release
+
+## line-count 'two lines.txt'
+two lines.txt: 2 lines
+[status 0]
+
+## line-count 'no final newline.txt'
+no final newline.txt: 1 lines
+[status 0]
+
+## line-count '-leading.txt'
+-leading.txt: 1 lines
+[status 0]
+
+## line-count "$(printf 'tab\there.txt')"
+tab	here.txt: 2 lines
+[status 0]
+
+## line-count missing.txt
+./line-count: line 4: missing.txt: No such file or directory
+Cannot count missing.txt (status 1)
+[status 1]
+
+## line-count adir
+wc: 'standard input': Is a directory
+Cannot count adir (status 1)
+[status 1]
+
+## line-count 
+./line-count: line 3: 1: Usage: line-count FILE
+[status 1]
+
+## pipefail + head
+status=141 PIPESTATUS=141 0
+[status 0]
+
+## local masks status
+after local: 0
+after split: 1
+[status 0]
+
+## lastpipe non-interactive
+v=hi
+[status 0]
+
+## plain pipeline loses var
+v=<empty>
+[status 0]
+
+## errexit ignored in function called by if
+kept going inside f
+f succeeded
+[status 0]
